@@ -9,15 +9,21 @@
 
             T maxItem = null;
             float maxValue = float.MinValue;
+            bool foundAny = false;
             foreach (var item in collection)
             {
                 float value = convertToNumber(item);
-                if (maxItem == null || value > maxValue)
+                if (!foundAny || value > maxValue)
                 {
                     maxValue = value;
                     maxItem = item;
+                    foundAny = true;
                 }
             }
+
+            if (!foundAny)
+                throw new InvalidOperationException("Collection contains no elements.");
+
             return maxItem;
         }
     }
